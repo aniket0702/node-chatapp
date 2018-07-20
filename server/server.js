@@ -22,12 +22,12 @@ io.on('connection', (socket) => {
   //   createAt: new Date()
   // });
   socket.emit('newMessage', generateMessage('admin', 'welcome to the chat page'));
-
   socket.broadcast.emit('newMessage',generateMessage('admin', 'new user joined'));
 
-  socket.on('createMessage', (message) => {
-    console.log('createEmail', message);
+  socket.on('createMessage', (message, callback) => {
+    console.log('createMessage', message);
     io.emit('newMessage', generateMessage(message.from, message.text));
+    callback('this is from the server');
     // socket.broadcast.emit('newMessage', {
     //   from: message.from,
     //   text: message.text,
